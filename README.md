@@ -4,21 +4,22 @@ Welcome to your first lab using PySpark in the Databricks environment! In this l
 
 We’ll use Databricks, a popular cloud-based platform for Spark. In this lab, you will:
 
-Set up your Databricks workspace
-Load a dataset into Spark
-Explore the dataset using basic PySpark functions
-Perform exploratory data analysis (EDA) using PySpark
-Visualize data using built-in functions and libraries
-Step 1: Setting Up Your Databricks Workspace
+1.Set up your Databricks workspace
+- Load a dataset into Spark
+- Explore the dataset using basic PySpark functions
+- Perform exploratory data analysis (EDA) using PySpark
+- Visualize data using built-in functions and libraries
+- Step 1: Setting Up Your Databricks Workspace
 
 Log in to Databricks Community Edition (if you don’t have an account, create one at databricks.com Links to an external site.)
-Create a new notebook:
-Once logged in, go to the Workspace section and create a new notebook.
-Give your notebook a meaningful name, for example: "ALY 6110 PySpark Lab".
-Set the language to Python.
-(If Needed) Create a new Resource and select the default cluster. Wait for it to attach.
-Question: What are the advantages of using a cloud-based platform like Databricks for working with Spark?
-Question: How does Spark's cluster computing model differ from traditional single-machine data processing?
+- Create a new notebook:
+- Once logged in, go to the Workspace section and create a new notebook.
+- Give your notebook a meaningful name, for example: "ALY 6110 PySpark Lab".
+- Set the language to Python.
+- (If Needed) Create a new Resource and select the default cluster. Wait for it to attach.
+i) Question: What are the advantages of using a cloud-based platform like Databricks for working with Spark?
+ii) Question: How does Spark's cluster computing model differ from traditional single-machine data processing?
+
 Step 2: Setting Up Spark Session
 
 Before performing any analysis, you need to create a Spark session. This will allow you to run Spark code in the Databricks environment. This step is usually automatic in Databricks, but we will initialize it for clarity.
@@ -26,6 +27,7 @@ Before performing any analysis, you need to create a Spark session. This will al
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.appName("ALY6110_EDA_Lab").getOrCreate()
+
 Step 3: Loading the Dataset
 
 For this lab, we'll use the a population and housing sales dataset. 
