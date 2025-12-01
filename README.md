@@ -114,3 +114,93 @@ df.describe().show()
 correlation = df.stat.corr("Population", "Sales Price")     
 
 print(f"Correlation between Population and Price: {correlation}") 
+
+Step 6:VIsualizing the Data
+
+Use Python libraries like matplotlib or seaborn to visualize data processed with Spark.
+
+import matplotlib.pyplot as plt
+
+# Convert Spark DataFrame to Pandas DataFrame for visualization
+
+pandas_df = df.toPandas()
+
+# Plot data
+
+plt.scatter(pandas_df['Population'], pandas_df['Sales Price'])
+
+plt.xlabel('2014 Population estimate')
+
+plt.ylabel('2015 median sales price')
+
+plt.title('Population vs Price')
+
+plt.show()
+ 
+
+Question: How can visualizing data processed with Spark help in understanding the data better?
+
+Step 7:Introduction to SparkML
+
+ Load the taxi dataset into Spark.
+
+df = spark.read.table("samples.nyctaxi.trips")
+
+df.show(5)
+Select the the columns to build our model.
+
+data = df.select("trip_distance", "fare_amount")
+ Prepare the data 
+
+from pyspark.ml.feature import VectorAssembler
+
+assembler = VectorAssembler(inputCols=["trip_distance", "fare_amount"], outputCol="features")
+
+feature_data = assembler.transform(data)
+ Create the model 
+
+from pyspark.ml.clustering import KMeans
+
+kmeans = KMeans(k=3, seed=1)  # Adjust the number of clusters (k) as needed
+
+model = kmeans.fit(feature_data)
+ Examine the predictions
+
+predictions = model.transform(feature_data)
+
+predictions.select("trip_distance", "fare_amount", "prediction").show()
+Evaluate the model
+from pyspark.ml.evaluation import ClusteringEvaluator
+
+evaluator = ClusteringEvaluator()
+
+silhouette = evaluator.evaluate(predictions)
+
+print(f"Silhouette with squared euclidean distance = {silhouette}")
+Visualize the results
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+pandas_df = predictions.select("trip_distance", "fare_amount", "prediction").toPandas()
+
+plt.figure(figsize=(10, 6))
+
+plt.scatter(pandas_df["trip_distance"], pandas_df["fare_amount"], c=pandas_df["prediction"], cmap="viridis", marker="o")
+
+plt.xlabel("Trip Distance")
+
+plt.ylabel("Fare Amount")
+
+plt.title("Cluster Analysis of NYC Taxi Trips")
+
+plt.colorbar(label="Cluster")
+
+plt.show()
+Question: How does building a machine learning model in SparkML compare to using traditional machine learning libraries like scikit-learn in Python?
+
+Reflection
+
+Question: Write a brief reflection on your experience using Spark. What did you find most challenging? What did you find most interesting?
+
+
